@@ -1,0 +1,111 @@
+{% extends 'template_base.html' %}
+
+{% block contenu %}
+{% load static %}
+<section class="recherche">
+    <div class="container">
+      <br>
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="#">Chambre</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Voir Plus</li>
+        </ol>
+      </nav>
+    </div>
+    <br>
+
+  
+  <br>
+  
+  
+  {% for key, value in liste_voiture.items %}
+  
+   <div class="container h_carte ">
+    <div class="row ">
+     <div class="col-sm-7">
+         <div class="p-3">
+           <div class="ind">Voiture</div>
+           <div class="nom_hotel">{{ value.marque }} - {{ value.modele }} {{value.annee}}</div>
+           <br>
+           <h5 class="">Caractéristiques de la voiture:</h5>
+           <div class="localisation"><img src="{% static 'img/localisation.png' %}" alt="" style="width: 20px; height: 20px;"><p>{{ value.localisation }} </p></div>
+           <div class="localisation"><img src="{% static 'img/users.png' %}" alt="" style="width: 20px; height: 20px;"><p>{{ value.nombre_place }} </p></div>
+           <div class="localisation"><img src="{% static 'img/vitesse.png' %}" alt="" style="width: 20px; height: 20px;"><p>{{ value.type }} </p></div>
+           
+           <h5 class="">Description :</h5>
+           <p class="text-justify fst-italic">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, perferendis voluptates et id est eligendi quod distinctio. Asperiores maxime totam autem, doloribus assumenda praesentium odit sequi mollitia quas ad omnis distinctio quisquam ducimus aperiam quasi quo culpa. Officiis, nihil molestias.
+             </p>
+            <br>
+            <div class="row">
+              <div class="col-sm-6 ">
+                <div class="nom_hotel">Prix : {{value.prix}} CFA / Jour</div>
+              </div>
+              <div class="col-sm-6 d-flex justify-content-end">
+                    <button class="btn btn-primary" type="submit"  data-info="{{ key }}" data-bs-toggle="modal"  data-bs-target="#staticBackdrop5" >Reserver</button>
+              </div>
+
+            </div>
+            
+         </div>
+     </div>
+     <div class="col-sm-5  ">
+       <img class="img_hotel " src="{% static 'img/'|add:value.photo %}" alt="photo">
+   </div>
+    </div>
+   </div>
+  <p>{{ hotel.description }}</p>
+
+  
+
+  <br>
+
+  
+  <br>
+   <!-- Modal -->
+<div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 p_text" id="staticBackdropLabel">Reservation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      {% if request.session.info_utilisateur.nom %}
+      <div class="modal-body">
+          Souhaitez vous reserver cette voiture?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <form action="{%url 'reservation_voiture'%}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="id_voiture" value="{{ key }}">
+          <button type="submit"  class="btn btn-primary confirmer"> Confirmer</button>
+          </form>
+      </div>
+      {% else %}
+      <div class="modal-body">
+          Vous devez-vous connecter pour pouvoir effectuer une réservation 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <a href="/connexion"><button type="button" class="btn btn-primary"> Se Connecter</button></a>
+          
+        </div>
+  
+      {% endif %}
+      
+    </div>
+  </div>
+  </div>
+  
+  {% endfor %}
+
+
+<!-- Button trigger modal -->
+
+
+
+</section>
+
+
+{% endblock %}

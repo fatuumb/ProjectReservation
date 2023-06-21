@@ -1,0 +1,136 @@
+{% extends 'template_base.html' %}
+
+{% block contenu %}
+{% load static %}
+<section class="recherche">
+    <div class="container">
+      <br>
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Hotel</li>
+        </ol>
+      </nav>
+    </div>
+
+  <div class="container ">
+    <form  method="POST" action="{% url 'resultat' %}">
+        {% csrf_token %}
+        <div class="row form2">
+
+        <div class="col-3">
+            <div class="lab_input">
+            
+            <div class="dateheure">
+            <input type="text" class="input" name="lieu"  placeholder="ex : Dakar" value="{{ request.session.hotel_info.lieu }}"> 
+            </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="lab_input">
+            <div class="dateheure">
+                <img src="{% static 'img/calendar.png' %}"  class="calendrier" alt="Ma Image"><input type="date" class="input" name="date_reservation" value="{{ request.session.hotel_info.arrivee }}" ><input type="date" class="input" name="date_restitution" value="{{ request.session.hotel_info.depart }}">
+            </div>
+            </div>
+        </div>
+        
+        <div class="col-3">
+            <div class="lab_input">
+            <div class="dateheure">
+            <input class="input"  name="nombre" type="number" placeholder="ex : 2 adultes" min="1" max="10" value="{{ request.session.hotel_info.nombre}}">
+            </div>
+            </div>
+        </div>
+
+        <div class="col-1">
+            <button class="btn_search"><img src="{% static 'img/chercher.png' %}" alt="" style="width: 30px; height: 30px;"></button>
+        </div>
+        </div>
+    </form>
+  </div>
+  <br>
+
+  <div class="container result">
+      <div class="row ">
+          <div class="col-sm-3 filtre"> 
+            <br>
+              <div class="f_div">
+                <h2 class="titre_f">Filtrer par :</h2>
+              </div>
+              
+              <div class="f_div f_prix">
+                <h4>Prix :</h4>
+                <ul>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span> 0 - 20.000 Frs </span></li>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span> 20.000 - 40.000 Frs</span></li>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span> 40.000 - 60.000 Frs</span></li>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span> 80.000 - 100.000 Frs</span></li>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span> + 100.000 Frs</span></li>
+                </ul>
+                
+              </div>
+              <div class="f_div f_prix">
+                <h4>Categorie :</h4>
+                <ul>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span>  0 Étoiles </span></li>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span>  1 Étoiles </span></li>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span>  2 Étoiles </span></li>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span>  3 Étoiles </span></li>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span>  4 Étoiles </span></li>
+                  <li class="li_f"><input type="checkbox" id="option1" name="options" value="option1"> <span>  5 Étoiles </span></li>
+                </ul>
+                
+              </div>
+              
+          </div>
+          <div class="col-sm-9 div_carte">
+            {% for key, value in liste_hotels.items %}
+              <!-- une carte -->
+              <div class="carte" >
+                <div class="row">
+                 <div class="col-sm-4 test">
+                     <img class="img_hotel " src="{% static 'img/'|add:value.photo %}" alt="photo">
+                 </div>
+                 <div class="col-sm-8 carte_info">
+                     <div>
+                         <div class="ind">Hotel</div>
+                         <div class="nom_hotel">{{ value.nom }}</div>
+                         <div class="etoile"><img src="{% static 'img/etoile.png' %}" alt="" style="width: 15px; height: 15px;"><img src="./img/icons8-etoile-50.png" alt="" style="width: 15px; height: 15px;"><img src="./img/icons8-etoile-50.png" alt="" style="width: 15px; height: 15px;"></div>
+                         <div class="localisation"><img src="{% static 'img/localisation.png' %}" alt="" style="width: 20px; height: 20px;"><p> Dakar,  {{ value.code }}</p></div>
+                     </div>
+                     <div>
+                         <div class="row">
+                             <div class="col-sm-6">
+                                 <div class="ind">A partir de</div>
+                                 <div class="tarif">{{ value.prix }} Frs / Nuit</div>
+                                 <div class="localisation taxes">Frais et taxes compris</div>
+                             </div>
+                             <div class="col-sm-6 btn_div ">
+                                <form action="{% url 'chambre' %}"  method="post" class="p-2">
+                                   {% csrf_token %}<input type="hidden" name="id_hotel" value="{{ key }}">
+                                    <button class="offre " type= "submit">Voir Disponibilités</button></form>
+                             </div>
+
+                         </div>
+                     </div>
+                 </div>
+
+                </div>
+             </div>
+             <!-- une carte -->
+          
+            {% endfor %}
+             
+            
+    
+
+              
+          
+      </div>
+      
+  </div>
+  
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'template_base.html' %}
+
+{% block contenu %}
+{% load static %}
+<section >
+    <div class="container">
+      <br>
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="#">vols</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Reservation</li>
+        </ol>
+      </nav>
+    </div>
+  
+  
+  <!-- Aperçu Hotel -->
+
+  <div class="container r_carte p-0 mb-4 mt-2">
+      <div class="r_titre text-center">
+          <h2>Paiements </h2>
+      </div>
+      <div class="container mt-2 mb-2">
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <input type="radio" name="payer"> <div class="meth"><img src="{% static 'img/visa1.jpg'%}" alt="" style="width: 30px; height: 30px;">Carte de crédit </div>
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="row mb-4">
+                      <div class="col-sm-2 text-end p_text">
+                          Nom : 
+                      </div>
+                      <div class="col-sm-3"  >
+                          <input type="text" class="inputs">
+                      </div>
+                      <div class="col-sm-2 text-end p_text">
+                          Prénom : 
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="inputs">
+                      </div>
+
+                  </div>
+                  <div class="row mb-2 mt-2">
+                      <div class="col-sm-2 text-end p_text">
+                          Numéro carte : 
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="inputs">
+                      </div>
+                      <div class="col-sm-2 text-end p_text">
+                          Cryptomanie :
+                      </div>
+                      <div class="col-sm-1">
+                          <input type="text"  class="inputs">
+                      </div>
+                      <div class="col-sm-2 text-end p_text">
+                          Date expiration :
+                      </div>
+                      <div class="col-sm-1">
+                          <input type="month" name="" id=""  class="inputs">
+                      </div>
+                      
+
+                  </div>
+                  
+             
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <input type="radio" name="payer"><div class="meth"> <img src="{% static 'img/paypal.png'%}" alt="" style="width: 30px; height: 30px;">Paypal</div>
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="row mb-4">
+                      <div class="col-sm-4 text-end p_text">
+                          Email ou nom utilisareur : 
+                      </div>
+                      <div class="col-sm-5"  >
+                          <input type="text" class="inputs">
+                      </div>
+                      
+  
+                      </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <input type="radio" name="payer"> <div class="meth"><img src="{% static 'img/omoney.png'%}" alt="" style="width: 30px; height: 30px;">Orange Money ou <img src="{% static 'img/wave.png'%}" alt="" style="width: 30px; height: 30px;">Wave </div>
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="container row text-center mb-4">
+                      <div class="col-sm-6"> 
+                          <div class="meth"><input type="radio" name="p" id=""> <img src="{% static 'img/omoney.png'%}" alt="" style="width: 30px; height: 30px;">Orange Money </div>
+                      </div>
+                      <div class="col-sm-6"> 
+                          <div class="meth"><input type="radio" name="p" id=""> <img src="{% static 'img/wave.png'%}" alt="" style="width: 30px; height: 30px;">Wave </div>
+                      </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-sm-4 text-end p_text">
+                      Numero de téléphone : 
+                  </div>
+                  <div class="col-sm-5"  >
+                      <input type="text" class="inputs">
+                  </div>
+                  
+
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+     
+      </div>
+
+    <div class="container mb-2">
+      <div class="row">
+          
+          <div class="col-sm-12  d-flex justify-content-end mt-2">
+              <button class="bt_p">Valider</button>
+          </div>
+
+      </div>
+
+    </div>
+  </div>
+  <br> <br>
+
+
+
+
+<!-- Button trigger modal -->
+
+
+
+</section>
+
+
+
+
+{% endblock %}

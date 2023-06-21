@@ -1,0 +1,302 @@
+{% extends 'template_base.html' %}
+
+{% block contenu %}
+{% load static %}
+<section >
+    <div class="container">
+      <br>
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="">Accueil</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Mes reservations</li>
+        </ol>
+      </nav>
+    </div>
+  
+  
+  <!-- Aperçu Hotel -->
+
+  <div class="container r_carte p-0 mb-4 mt-2">
+      <div class="r_titre text-center">
+          <h2>Mes Réservations </h2>
+      </div>
+      <div class="liste_res">
+        {% for key, value in chambre.items %}
+
+        <div class="carte_res">
+          <div class=" d-flex justify-content-end">
+            <button class="modifier">
+              <img src="{% static 'img/modifie.png' %}"  style="width: 15px; height: 15px;" alt="">
+            </button>
+            <button class="supprimer"  data-bs-toggle="modal" data-bs-target="#staticBackdrop3" id="supprimer" value="{{ key }}">
+              <img src="{% static 'img/supprime.png' %}"  style="width: 15px; height: 15px;" alt="">
+            </button>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 text-end h_name">
+              N° :
+            </div>
+            <div class="col-sm-4 r_text">
+              {{ key }}
+            </div>
+            <div class="col-sm-2 text-end h_name">
+              Type :
+            </div>
+            <div class="col-sm-4 r_text">
+              Chambre d'hotel
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2 text-end h_name">
+              Période :
+            </div>
+            <div class="col-sm-4 r_text">
+              {{ value.arrivee}} - {{ value.depart}}
+            </div>
+            <div class="col-sm-2 text-end h_name">
+              Statut Paiement :
+            </div>
+            <div class="col-sm-4">
+              {% if  value.paiement  %}
+              <p class="statut1">Validée</p>
+              {% else %}
+              <div class="row">
+                <div class="col-sm-6"><p class="statut2">En attente</p></div>
+                <div class="col-sm-6"> <form action="{% url 'paiement' %}" method="post">
+                  {% csrf_token %} 
+                  <input type="hidden" name="id_reservation" value="{{  key }}">
+                  <input type="hidden" name="type_reservation" value="app_reservation_reservations_hotel">
+                  <div class="col-sm-6"><button class="btn_payer" type="submit">Payer</button></div>
+                 </form></div>
+                
+              </div>
+                
+              
+              {% endif %}
+                    
+            </div>
+          </div>
+
+          
+          
+          
+        </div>
+
+        {% endfor %}
+
+        {% for key, value in voiture.items %}
+
+        <div class="carte_res">
+          <div class=" d-flex justify-content-end">
+            <button class="modifier">
+              <img src="{% static 'img/modifie.png' %}"  style="width: 15px; height: 15px;" alt="">
+            </button>
+            <button class="supprimer"  data-bs-toggle="modal" data-bs-target="#staticBackdrop4" id="supprimer" value="{{ key }}">
+              <img src="{% static 'img/supprime.png' %}"  style="width: 15px; height: 15px;" alt="">
+            </button>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 text-end h_name">
+              N° :
+            </div>
+            <div class="col-sm-4 r_text">
+              {{ key }}
+            </div>
+            <div class="col-sm-2 text-end h_name">
+              Type :
+            </div>
+            <div class="col-sm-4 r_text">
+              Voiture
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2 text-end h_name">
+              Période :
+            </div>
+            <div class="col-sm-4 r_text">
+              {{ value.arrivee}} - {{ value.depart}}
+            </div>
+            <div class="col-sm-2 text-end h_name">
+              Statut Paiement :
+            </div>
+            <div class="col-sm-4">
+              {% if  value.paiement  %}
+              <p class="statut1">Validée</p>
+              {% else %}
+              <div class="row">
+                <div class="col-sm-6"><p class="statut2">En attente</p></div>
+                <div class="col-sm-6"> <form action="{% url 'paiement' %}" method="post">
+                  {% csrf_token %} 
+                  <input type="hidden" name="id_reservation" value="{{  key }}">
+                  <input type="hidden" name="type_reservation" value="app_reservation_location_voiture">
+                  <div class="col-sm-6"><button class="btn_payer" type="submit">Payer</button></div>
+                 </form></div>
+                
+              </div>
+                
+              
+              {% endif %}
+                    
+            </div>
+          </div>
+
+          
+          
+          
+        </div>
+
+        {% endfor %}
+
+        {% for key, value in vol.items %}
+
+        <div class="carte_res">
+          <div class=" d-flex justify-content-end">
+            <button class="modifier">
+              <img src="{% static 'img/modifie.png' %}"  style="width: 15px; height: 15px;" alt="">
+            </button>
+            <button class="supprimer"  data-bs-toggle="modal" data-bs-target="#staticBackdrop6" id="supprimer" value="{{ key }}">
+              <img src="{% static 'img/supprime.png' %}"  style="width: 15px; height: 15px;" alt="">
+            </button>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 text-end h_name">
+              N° :
+            </div>
+            <div class="col-sm-4 r_text">
+              {{ key }}
+            </div>
+            <div class="col-sm-2 text-end h_name">
+              Type :
+            </div>
+            <div class="col-sm-4 r_text">
+              Vol
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2 text-end h_name">
+              Période :
+            </div>
+            <div class="col-sm-4 r_text">
+              {{ value.date}} 
+            </div>
+            <div class="col-sm-2 text-end h_name">
+              Statut Paiement :
+            </div>
+            <div class="col-sm-4">
+              {% if  value.paiement  %}
+              <p class="statut1">Validée</p>
+              {% else %}
+              <div class="row">
+                <div class="col-sm-6"><p class="statut2">En attente</p></div>
+                <div class="col-sm-6"> <form action="{% url 'paiement' %}" method="post">
+                  {% csrf_token %} 
+                  <input type="hidden" name="id_reservation" value="{{  key }}">
+                  <input type="hidden" name="type_reservation" value="app_reservation_reservation_vol">
+                  <div class="col-sm-6"><button class="btn_payer" type="submit">Payer</button></div>
+                 </form></div>
+                
+              </div>
+                
+              
+              {% endif %}
+                    
+            </div>
+          </div>
+
+          
+        </div>
+
+        {% endfor %}
+
+        <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5 p_text text-center text-dark" id="staticBackdropLabel">Annuler réservation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+             
+              <div class="modal-body text-dark">
+                  Souhaitez vous annuler votre réservation de chambre d'hôtel ?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">Annuler</button>
+                  <form action="{% url 'annuler' %}" method="post">
+                    {% csrf_token %} 
+                    <input type="hidden" name="id_reservation" id="id_reservation" >
+                    <input type="hidden" name="type_reservation" value="app_reservation_reservations_hotel">
+                    <button type="submit" class="btn btn-danger" > Confirmer Annulation</button>
+                   </form>
+                 
+                </div>
+              
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5 p_text text-center text-dark" id="staticBackdropLabel">Annuler réservation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+             
+              <div class="modal-body text-dark">
+                  Souhaitez vous annuler votre réservation de voiture  ?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">Annuler</button>
+                  <form action="{% url 'annuler' %}" method="post">
+                    {% csrf_token %} 
+                    <input type="hidden" name="id_reservation" id="id_reservation2" >
+                    <input type="hidden" name="type_reservation" value="app_reservation_location_voiture">
+                    <button type="submit" class="btn btn-danger" > Confirmer Annulation</button>
+                   </form>
+                 
+                </div>
+              
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="staticBackdrop6" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5 p_text text-center text-dark" id="staticBackdropLabel">Annuler réservation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+             
+              <div class="modal-body text-dark">
+                  Souhaitez vous annuler votre réservation de vol  ?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">Annuler</button>
+                  <form action="{% url 'annuler' %}" method="post">
+                    {% csrf_token %} 
+                    <input type="hidden" name="id_reservation" id="id_reservation3" >
+                    <input type="hidden" name="type_reservation" value="app_reservation_reservation_vol">
+                    <button type="submit" class="btn btn-danger" > Confirmer Annulation</button>
+                   </form>
+                 
+                </div>
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <br> <br>
+
+<!-- Button trigger modal -->
+
+</section>
+
+{% endblock %}

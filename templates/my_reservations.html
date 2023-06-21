@@ -1,0 +1,70 @@
+{% extends 'template_base.html' %}
+
+{% block contenu %}
+{% load static %}
+<section >
+    <div class="container">
+      <br>
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Accueil</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Mes reservations</li>
+        </ol>
+      </nav>
+    </div>
+  
+  
+  <!-- Aperçu Voiture -->
+
+  <div class="container r_carte p-0 mb-4 mt-2">
+      <div class="r_titre text-center">
+          <h2>Mes Réservations </h2>
+      </div>
+      <div class="liste_res">
+        
+        <div class="carte_res">
+          <div class=" d-flex justify-content-end">
+            <button class="modifier">
+              <img src="{% static 'img/modifie.png' %}"  style="width: 15px; height: 15px;" alt="">
+            </button>
+            <button class="supprimer">
+              <img src="{% static 'img/supprime.png' %}"  style="width: 15px; height: 15px;" alt="">
+            </button>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 text-end h_name">
+              N° :
+            </div>
+            <div class="col-sm-4 r_text">
+              5643778
+            </div>
+            <div class="col-sm-2 text-end h_name">
+              Type :
+            </div>
+            <div class="col-sm-4 r_text">
+              voiture
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2 text-end h_name">
+              Période :
+            </div>
+            <div class="col-sm-4 r_text">
+              12/12/22 
+            </div>
+            <div class="col-sm-2 text-end h_name">
+              Statut Paiement :
+            </div>
+            <div class="col-sm-4">
+              <p class="statut1">Validée</p>
+              <!-- <p class="statut2">En attente</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <br> <br>
+</section>
+
+{% endblock %}

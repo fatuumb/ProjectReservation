@@ -1,0 +1,167 @@
+{% extends 'template_base.html' %}
+
+{% block contenu %}
+{% load static %}
+<div class="container">
+    <div class="main-body">
+    
+          <!-- Breadcrumb -->
+          <div class="container">
+            <br>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Profil</li>
+              </ol>
+            </nav>
+          </div>
+          <!-- /Breadcrumb -->
+    
+          <div class="row gutters-sm mt-4 mb-4 ">
+            <div class="col-md-4  mb-3">
+              <div class="card">
+                <div class="card-body">
+                    <br><br>
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="{% static 'img/avatar.png' %}" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3 text-wrap">
+                      <h3> {{ request.session.info_utilisateur.prenom }} {{ request.session.info_utilisateur.nom }} </h3>
+                      <br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-md-8">
+                
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <h6 class="mb-0 fs-5 text">Nom Complet</h6>
+                    </div>
+                    <div class="col-sm-8 fs-5 text text-secondary">
+                        {{ request.session.info_utilisateur.prenom }} {{ request.session.info_utilisateur.nom }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-4 fs-5 text">
+                      <h6 class="mb-0 fs-5 text">Email</h6>
+                    </div>
+                    <div class="col-sm-8 fs-5 text text-secondary">
+                        {{ request.session.info_utilisateur.email }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-4 fs-5 text">
+                      <h6 class="mb-0 fs-5 text">Télephone</h6>
+                    </div>
+                    <div class="col-sm-8 fs-5 text text-secondary">
+                       +221  {{ request.session.info_utilisateur.telephone }}
+                    </div>
+                  </div>
+                  <hr>
+                  
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-4 fs-5 text">
+                      <h6 class="mb-0 fs-5 text">Adresse</h6>
+                    </div>
+                    <div class="col-sm-8 fs-5 text text-secondary">
+                        {{ request.session.info_utilisateur.adresse }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#staticBackdrop4">Modifier Informations</button>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
+
+
+      <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 p_text text-center text-dark" id="staticBackdropLabel">Modifications Profil</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+           
+            <div class="modal-body text-dark">
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0 fs-5 text text-end">Nom :</h6>
+                      </div>
+                      <div class="col-sm-9 fs-5 text text-secondary">
+                        <input type="text" value="{{ request.session.info_utilisateur.nom }}"> 
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0 fs-5 text text-end">Prénom : </h6>
+                        </div>
+                        <div class="col-sm-9 fs-5 text text-secondary">
+                            <input type="text" value=" {{ request.session.info_utilisateur.prenom }}">
+                        </div>
+                      </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3 fs-5 text">
+                        <h6 class="mb-0 fs-5 text text-end">Email :</h6>
+                      </div>
+                      <div class="col-sm-9 fs-5 text text-secondary">
+                          <input type="email" value="{{ request.session.info_utilisateur.email }}">
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3 fs-5 text">
+                        <h6 class="mb-0 fs-5 text text-end">Télephone :</h6>
+                      </div>
+                      <div class="col-sm-9 fs-5 text text-secondary">
+                        <input type="text" value="{{ request.session.info_utilisateur.telephone }}">
+                      </div>
+                    </div>
+                    <hr>
+                    
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3 fs-5 text">
+                        <h6 class="mb-0 fs-5 text text-end">Adresse :</h6>
+                      </div>
+                      <div class="col-sm-9 fs-5 text text-secondary">
+                        <input type="text" value="{{ request.session.info_utilisateur.adresse }}">  
+                      </div>
+                    </div>
+                    <hr>
+                  
+                  </div>
+            </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                <a href=""><button type="button" class="btn btn-primary"> Enregistrer Modifications</button></a>
+              </div>
+            
+            
+          </div>
+        </div>
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

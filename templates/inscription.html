@@ -1,0 +1,79 @@
+{% extends 'template_base.html' %}
+
+{% block contenu %}
+{% load static %}
+    <div class="login">
+        <div class=" d-flex justify-content-center align-items-center">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-12 col-md-8 col-lg-7">
+                        <div class="card login_card">
+                            <div class="card-body p-5">
+                                <form  method="POST" action="{% url 'inscription' %}" class="mb-3 mt-md-3" id="form_inscription">
+                                    {% csrf_token %}
+                                    <h1 class="fw-bold mb-2 text-uppercase text-center">Inscription</h1>
+                                    <div class="mb-3 ">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="nom" class="form-label ">Nom </label>
+                                                <input type="text" class=" log" id="nom" name="nom" placeholder="nom">
+                                                <p class="erreurmessage" id="erreurnom"></p>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="nom" class="form-label ">Prénom </label>
+                                                <input type="text" class=" log" id="prenom" name="prenom" placeholder="nom">
+                                                <p class="erreurmessage" id="erreurprenom"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="password" class="form-label ">Email</label>
+                                                <input type="email" name="email" class=" log" id="email" placeholder="xxxxx@xxxx.xx">
+                                                <p class="erreurmessage" id="erreuremail"></p>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="password" class="form-label ">Téléphone</label>
+                                                <input type="text" class=" log" id="telephone" name="telephone"
+                                                    placeholder="+221 77 123 45 67">
+                                                    <p class="erreurmessage" id="erreurtelephone"></p>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="mb-3 ">
+                                        <label for="prenom" class="form-label ">Adresse </label>
+                                        <input type="text" class=" log" id="adresse" name="adresse" placeholder="ex: Dakar">
+                                        <p class="erreurmessage" id="erreuradresse"></p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label ">Mot de passe</label>
+                                        <input type="password" class=" log" id="mot_de_passe" name="mot_de_passe" placeholder="*******">
+                                        <p class="erreurmessage" id="erreurmotdepasse"></p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label ">Confirmer mot de passe</label>
+                                        <input type="password" class=" log" id="mot_de_passe2" name="mot_de_passe2" placeholder="*******">
+                                        <p class="erreurmessage" id="erreurmotdepasse2"></p>
+                                    </div>
+
+                                    <div class="d-grid">
+                                        <button class="btn bouton_con" type="submit">S'inscrire</button>
+                                    </div>
+                                </form>
+                                <div>
+                                    <p class="mb-0  text-center">Vous avez un compte? <a href="/connexion"
+                                            class="text-primary fw-bold">Connectez - Vous</a></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

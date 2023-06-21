@@ -1,0 +1,174 @@
+{% extends 'template_base.html' %}
+
+{% block contenu %}
+{% load static %}
+<section class="recherche">
+    <div class="container">
+      <br>
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Voiture</li>
+        </ol>
+      </nav>
+    </div>
+  
+  
+
+
+
+
+  <div class="container ">
+    <form action="{% url 'car_list' %}" method="post">
+      {% csrf_token %}
+    <div class="row form2">
+      
+      <div class="col-3">
+        <div class="lab_input">
+          
+          <div class="dateheure">
+          <input type="text" class="input" name="Lieulocation"  placeholder="ex : Dakar" value="{{ inputs.lieu}}"> 
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="lab_input">
+          <div class="dateheure">
+            <img src="{% static 'img/calendar.png' %}" class="calendrier" alt="Ma Image"><input type="datetime-local" class="input" name="Datelocation" value="{{ inputs.arrivee}}" >
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-4">
+        <div class="lab_input">
+          <div class="dateheure">
+            <img src="{% static 'img/calendar.png' %}" class="calendrier" alt="Ma Image"><input type="datetime-local" class="input" name="Retourlocation" value="{{ inputs.depart}}">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-1">
+        <button class="btn_search"><img src="{% static 'img/chercher.png' %}" alt="" style="width: 30px; height: 30px;"></button>
+      </div>
+      
+    </div>
+  </form>
+  </div>
+  <br>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-10 mb-2 ">
+        <h2 class="p_text">Choisissez votre voiture :</h2>
+      </div>
+      <div class="col-sm-2 d-flex justify-content-end">
+        <div class="dropdown-center">
+          <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Trier par :
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Defaut</a></li>
+            <li><a class="dropdown-item" href="#">Tarif Croissant</a></li>
+            <li><a class="dropdown-item" href="#">Tarif Décroissant</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  
+  <div class="container mb-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for key, value in liste_voiture.items %}
+         <!-- UNe carte chambre -->
+      <div class="col">
+        <div class="c_carte">
+          <div class="c_img"> <img src="{% static 'img/'|add:value.photo %}" class="card-img-top" alt="..."></div>
+          <div class="c_desc">
+            <div>
+              <h5 class="card-title"> {{ value.marque }} - {{ value.modele }}</h5>
+            <div><img src="{% static 'img/users.png' %}" alt="" style="width: 20px; height: 20px;"><span class="c_span">{{ value.nombre_place }} place (s)</span></div>
+            <div><img src="{% static 'img/vitesse.png' %}" alt="" style="width: 20px; height: 20px;"><span class="c_span">{{ value.type }}</span></div>
+            </div>
+            <div class="c_prix">
+              <div class="row ">
+                <div class="col-sm-7">
+                    <div class="ind">Tarif</div>
+                    <div class="prix"> {{ value.prix }} Frs / Jour</div>
+                    
+                </div>
+                <div class="col-sm-5 btn_div ">
+                  <form action="{%url 'voir_plus'%}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_voiture" value="{{ key }}">
+                    
+                      <button class="btn_res" type="submit" >Voir Plus</button>
+                    
+                  </form>
+                </div>
+                
+                
+                
+
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- UNe carte chambre -->
+
+    {% endfor %}
+     
+
+      
+      
+    </div>
+
+  </div>
+  
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5 p_text" id="staticBackdropLabel">Reservation</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    {% if request.session.info_utilisateur.nom %}
+    <div class="modal-body">
+        Souhaitez vous reserver la chambre ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <form action="{% url 'reservation' %}" method="post"  id="myForm">
+        {% csrf_token %}
+        <input type="hidden"  name='id_chambre' id='id_chambre'  >
+        <button type="submit"  class="btn btn-primary confirmer"> Confirmer</button>
+        </form>
+    </div>
+    {% else %}
+    <div class="modal-body">
+        Vous devez-vous connecter pour pouvoir effectuer une réservation 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <a href="/connexion"><button type="button" class="btn btn-primary"> Se Connecter</button></a>
+        
+      </div>
+
+    {% endif %}
+    
+  </div>
+</div>
+</div>
+</section>
+
+
+{% endblock %}

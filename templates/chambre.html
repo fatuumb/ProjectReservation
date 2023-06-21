@@ -1,0 +1,189 @@
+{% extends 'template_base.html' %}
+
+{% block contenu %}
+{% load static %}
+<section class="recherche">
+    <div class="container">
+      <br>
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="#">Hotel</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Chambre</li>
+        </ol>
+      </nav>
+    </div>
+  
+  
+  <!-- Aperçu Hotel -->
+  {% if hotel %}
+  <!-- Utilisez la variable 'hotel' ici -->
+   <div class="container h_carte ">
+    <div class="row ">
+     <div class="col-sm-8">
+         <div class="p-3">
+           <div class="ind">Hotel</div>
+           <div class="nom_hotel">{{ hotel.nom }}</div>
+           <div class="etoile"><img src="{% static 'img/etoile.png' %}" alt="" style="width: 15px; height: 15px;"><img src="./img/icons8-etoile-50.png" alt="" style="width: 15px; height: 15px;"><img src="./img/icons8-etoile-50.png" alt="" style="width: 15px; height: 15px;"></div>
+           <div class="localisation"><img src="{% static 'img/localisation.png' %}" alt="" style="width: 20px; height: 20px;"><p> {{ hotel.ville }}, {{ hotel.code }}</p></div>
+           <br>
+           <p class="text-justify fst-italic">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, perferendis voluptates et id est eligendi quod distinctio. Asperiores maxime totam autem, doloribus assumenda praesentium odit sequi mollitia quas ad omnis distinctio quisquam ducimus aperiam quasi quo culpa. Officiis, nihil molestias.
+             </p>
+         </div>
+     </div>
+     <div class="col-sm-4 p-0 ">
+       <img class="img_hotel " src="{% static 'img/'|add:hotel.photo %}" alt="photo">
+   </div>
+    </div>
+   </div>
+  <p>{{ hotel.description }}</p>
+{% else %}
+  <!-- Gérez le cas où la variable 'hotel' n'est pas encore chargée -->
+  <p>Chargement en cours...</p>
+{% endif %}
+   
+
+  <br>
+
+  <div class="container ">
+    <div class="row form2">
+      <div class="col-3">
+        <div class="lab_input">
+          
+          <div class="dateheure">
+          <input type="text" class="input"   placeholder="ex : Dakar" value="{{ request.session.hotel_info.lieu }}"> 
+          </div>
+        </div>
+      </div>
+      <div class="col-5">
+        <div class="lab_input">
+          <div class="dateheure">
+            <img src="{% static 'img/calendar.png' %}" class="calendrier" alt="Ma Image"><input type="date" class="input" value="{{ request.session.hotel_info.arrivee }}" ><input type="date" class="input" value="{{ request.session.hotel_info.depart }}">
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-3">
+        <div class="lab_input">
+          <div class="dateheure">
+           <input class="input"  type="number" placeholder="ex : 2 adultes" min="1" max="10" value="{{ request.session.hotel_info.nombre}}">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-1">
+        <button class="btn_search"><img src="{% static 'img/chercher.png' %}" alt="" style="width: 30px; height: 30px;"></button>
+      </div>
+    </div>
+
+  </div>
+  <br>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-10 mb-2 ">
+        <h2 class="p_text">Choisissez votre chambre :</h2>
+      </div>
+      <div class="col-sm-2 d-flex justify-content-end">
+        <div class="dropdown-center">
+          <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Trier par :
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Defaut</a></li>
+            <li><a class="dropdown-item" href="#">Tarif Croissant</a></li>
+            <li><a class="dropdown-item" href="#">Tarif Décroissant</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  
+  <div class="container mb-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for key, value in liste_chambre.items %}
+         <!-- UNe carte chambre -->
+      <div class="col">
+        <div class="c_carte">
+          <div class="c_img"> <img src="{% static 'img/'|add:value.photo %}" class="card-img-top" alt="..."></div>
+          <div class="c_desc">
+            <div>
+              <h5 class="card-title"> {{ value.type }}</h5>
+            <div><img src="{% static 'img/desc.png' %}" alt="" style="width: 20px; height: 20px;"><span class="c_span">{{ value.description }}</span></div>
+            <div><img src="{% static 'img/lit2.png' %}" alt="" style="width: 20px; height: 20px;"><span class="c_span">2 lits</span></div>
+            <div><img src="{% static 'img/users.png' %}" alt="" style="width: 20px; height: 20px;"><span class="c_span">{{ value.nombre }} personne (s)</span></div>
+            </div>
+            <div class="c_prix">
+              <div class="row ">
+                <div class="col-sm-6">
+                    <div class="ind">Tarif</div>
+                    <div class="prix"> {{ value.prix }} Frs / Nuit</div>
+                    
+                </div>
+                <div class="col-sm-6 btn_div ">
+                    <button class="btn_res  " data-bs-toggle="modal" data-info="{{ key }}" data-bs-target="#staticBackdrop2">Reserver</button>
+                </div>
+
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- UNe carte chambre -->
+
+    {% endfor %}
+     
+
+      
+      
+    </div>
+
+  </div>
+  
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5 p_text" id="staticBackdropLabel">Reservation</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    {% if request.session.info_utilisateur.nom %}
+    <div class="modal-body">
+        Souhaitez vous reserver la chambre ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <form action="{% url 'reservation' %}" method="post"  id="myForm">
+        {% csrf_token %}
+        <input type="hidden"  name='id_chambre' id='id_chambre'  >
+        <button type="submit"  class="btn btn-primary confirmer"> Confirmer</button>
+        </form>
+    </div>
+    {% else %}
+    <div class="modal-body">
+        Vous devez-vous connecter pour pouvoir effectuer une réservation 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <a href="/connexion"><button type="button" class="btn btn-primary"> Se Connecter</button></a>
+        
+      </div>
+
+    {% endif %}
+    
+  </div>
+</div>
+</div>
+</section>
+
+
+{% endblock %}
